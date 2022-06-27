@@ -32,4 +32,4 @@ u = LOAD 'data.csv' USING PigStorage(',')
 
 data = FOREACH u GENERATE firstname, FLATTEN(color) as color;
 response = FILTER data BY firstname MATCHES '^Z.*' AND color=='blue'; 
-STORE response INTO './output'  USING PigStorage('\t');
+STORE response INTO './output'  USING PigStorage(',');
