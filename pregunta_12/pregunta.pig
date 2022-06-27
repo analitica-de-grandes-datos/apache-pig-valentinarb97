@@ -27,3 +27,17 @@ $ pig -x local -f pregunta.pig
         >>> Escriba su respuesta a partir de este punto <<<
 */
 
+fs -rm -f -r output;
+
+u = LOAD 'data.csv' USING PigStorage(',') 
+    AS (id:int, 
+        firstname:CHARARRAY, 
+        surname:CHARARRAY, 
+        birthday:CHARARRAY, 
+        color:CHARARRAY, 
+        quantity:INT);
+
+surnames = FOREACH u GENERATE surname;
+surnameFiltered = FOREACH surnames GENERATE FLATTEN(REGEX_EXTRACT_ALL(surname, '([D-K][a-z]+)')) as sn;
+response = filter surnameFiltered by sn is not null;
+STORE response INTO './output'  USING PigStorage(',');
