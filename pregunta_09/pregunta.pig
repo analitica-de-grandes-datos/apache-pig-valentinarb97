@@ -37,3 +37,4 @@ fs -rm -f -r output;
 data= LOAD 'data.csv' USING PigStorage(',') as (c1,c2,c3,c4,c5,c6);
 keys = FOREACH data GENERATE CONCAT(c2,'@',c3);
 STORE keys INTO './output'  USING PigStorage('\t');
+fs -get output;

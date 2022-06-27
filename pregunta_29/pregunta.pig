@@ -46,7 +46,7 @@ ejercicio = LOAD 'data.csv' USING PigStorage(',')
     );
 
 sub_conjunto = FOREACH ejercicio GENERATE fecha, LOWER(ToString(ToDate(fecha), 'MMM')) AS nombre_mes, SUBSTRING(fecha,5,7) AS mes, GetMonth(ToDate(fecha)) AS month;
-sub_conjunto = FOREACH sub_conjunto GENERATE fecha, REPLACE(nombre_mes, 'jan', 'ene') AS nombre_mes, mes, month
+sub_conjunto = FOREACH sub_conjunto GENERATE fecha, REPLACE(nombre_mes, 'jan', 'ene') AS nombre_mes, mes, month;
 sub_conjunto = FOREACH sub_conjunto GENERATE fecha, REPLACE(nombre_mes, 'apr', 'abr') AS nombre_mes, mes, month;
 sub_conjunto = FOREACH sub_conjunto GENERATE fecha, REPLACE(nombre_mes, 'aug', 'ago') AS nombre_mes, mes, month;
 sub_conjunto = FOREACH sub_conjunto GENERATE fecha, REPLACE(nombre_mes, 'dec', 'dic') AS nombre_mes, mes, month;
