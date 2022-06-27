@@ -8,7 +8,7 @@ os.chdir(module_path)
 
 
 expected = [
-    "Zoe blue",
+    "Zoe	blue",
 ]
 
 if os.path.isdir("output"):
