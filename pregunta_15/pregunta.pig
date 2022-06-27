@@ -20,3 +20,16 @@ $ pig -x local -f pregunta.pig
 
 */
 
+fs -rm -f -r output;
+
+u = LOAD 'data.csv' USING PigStorage(',') 
+    AS (id:int, 
+        firstname:CHARARRAY, 
+        surname:CHARARRAY, 
+        birthday:CHARARRAY, 
+        color:CHARARRAY, 
+        quantity:INT);
+
+data = FOREACH u GENERATE firstname, FLATTEN(color) as color;
+response = FILTER data BY firstname MATCHES '^Z.*' AND color=='blue'; 
+STORE response INTO './output'  USING PigStorage('\t');
